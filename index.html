@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Dustbin Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .card {
+      background: white;
+      width: 320px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+    }
+    .full { color: red; font-weight: bold; }
+    .ok { color: green; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Smart Dustbin</h2>
+  <p id="distance">--</p>
+  <p id="percent">--</p>
+  <p id="status">--</p>
+</div>
+
+<script>
+const url = "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com/dustbin.json";
+
+setInterval(() => {
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("distance").innerText =
+        "Distance: " + data.distance + " cm";
+
+      document.getElementById("percent").innerText =
+        "Filled: " + data.percentage + "%";
+
+      document.getElementById("status").innerHTML =
+        data.status === "FULL"
+          ? "<span class='full'>⚠ DUSTBIN FULL</span>"
+          : "<span class='ok'>✅ NOT FULL</span>";
+    });
+}, 2000);
+</script>
+
+</body>
+</html>
