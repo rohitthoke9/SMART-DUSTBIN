@@ -29,26 +29,34 @@
   <p id="percent">--</p>
   <p id="status">--</p>
 </div>
-
 <script>
 const url =
-"https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com/dustbin.json";
+"https://smartdustbin-14441-default-rtdb.firebaseio.com/dustbin.json";
 
 setInterval(() => {
-  fetch(url)
-    .then(r => r.json())
+  fetch(url + "?t=" + Date.now())   // cache buster
+    .then(res => res.json())
     .then(d => {
+      if (!d) return;
+
       document.getElementById("distance").innerText =
         "Distance: " + d.distance + " cm";
+
       document.getElementById("percent").innerText =
         "Filled: " + d.percentage + "%";
+
       document.getElementById("status").innerHTML =
         d.status === "FULL"
-          ? "<span class='full'>⚠ FULL</span>"
-          : "<span class='ok'>✅ NOT FULL</span>";
+          ? "<span style='color:red;font-weight:bold'>⚠ DUSTBIN FULL</span>"
+          : "<span style='color:green;font-weight:bold'>✅ NOT FULL</span>";
     });
 }, 2000);
 </script>
+
+
+
+
+
 
 </body>
 </html>
