@@ -31,21 +31,20 @@
 </div>
 
 <script>
-const url = "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com/dustbin.json";
+const url =
+"https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com/dustbin.json";
 
 setInterval(() => {
   fetch(url)
-    .then(res => res.json())
-    .then(data => {
+    .then(r => r.json())
+    .then(d => {
       document.getElementById("distance").innerText =
-        "Distance: " + data.distance + " cm";
-
+        "Distance: " + d.distance + " cm";
       document.getElementById("percent").innerText =
-        "Filled: " + data.percentage + "%";
-
+        "Filled: " + d.percentage + "%";
       document.getElementById("status").innerHTML =
-        data.status === "FULL"
-          ? "<span class='full'>⚠ DUSTBIN FULL</span>"
+        d.status === "FULL"
+          ? "<span class='full'>⚠ FULL</span>"
           : "<span class='ok'>✅ NOT FULL</span>";
     });
 }, 2000);
@@ -53,3 +52,4 @@ setInterval(() => {
 
 </body>
 </html>
+
